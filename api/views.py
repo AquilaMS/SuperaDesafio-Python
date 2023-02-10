@@ -42,14 +42,20 @@ class AddProductToCart(APIView):
         checkUseCart = Cart.objects.filter(id_user=user).first()
         userCart = Cart(id_user=user)
         print(checkUseCart)
-        if (checkUseCart):
-            itemsCount = Cart.objects.get(id_user=user).products.all().count()
+
+        def update_total_price():
             userCartSum = Cart.objects.annotate(
-                price=Sum(F('products__price')*itemsCount)
+                price=Sum(F('products__price'))
             ).get(id_user=user)
             userCartSum.total_price = userCartSum.price
             userCartSum.save()
-            return HttpResponse(userCartSum.total_price)
+
+        if (checkUseCart):
+            checkUseCart.products.add(product)
+            update_total_price()
+            return HttpResponse()
         else:
             userCart.save()
             userCart.products.add(product)
+            update_total_price()
+            return HttpResponse()
