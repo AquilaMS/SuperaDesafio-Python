@@ -6,5 +6,6 @@ urlpatterns = [
     path('signup/', view=views.Signup.as_view()),
     path('get-token/', view=obtain_auth_token),
     path('cart/', views.ProductToCart.as_view()),
+    path('cart/checkout/', views.Checkout.as_view()),
 
 ]

@@ -96,3 +96,21 @@ class ProductToCart(APIView):
             userCart.products.remove(product)
             update_total_price()
             return HttpResponse()
+
+
+class Checkout(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, format=None):
+        body = json.loads(request.body)
+        user = request.user
+        userCart = Cart.objects.get(id_user=user)
+        allUserProduct = userCart.products.all()
+        newTransaction = Transaction(id_user=user)
+        newTransaction.save()
+        result = newTransaction.bought.add(*allUserProduct)
+
+        userCart.delete()
+
+        return HttpResponse()
