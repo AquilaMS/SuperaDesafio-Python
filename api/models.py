@@ -19,7 +19,7 @@ class Product(models.Model):
 class Cart(models.Model):
     id_cart = models.UUIDField(primary_key=True, default=uuid4, null=False)
     id_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    total_price = models.FloatField(default=0)
+    total_price = models.FloatField(default=0, null=True)
     products = models.ManyToManyField(Product)
 
 
