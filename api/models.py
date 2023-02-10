@@ -10,15 +10,16 @@ class User(AbstractUser):
 
 class Product(models.Model):
     id_product = models.UUIDField(primary_key=True, default=uuid4, null=False)
+    name = models.CharField(max_length=255)
     price = models.FloatField()
     score = models.FloatField()
-    image_ref = models.CharField(max_length=255)
+    image = models.CharField(max_length=255)
 
 
 class Cart(models.Model):
     id_cart = models.UUIDField(primary_key=True, default=uuid4, null=False)
     id_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    total_price = models.FloatField()
+    total_price = models.FloatField(default=0)
     products = models.ManyToManyField(Product)
 
 
