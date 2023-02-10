@@ -5,6 +5,8 @@ from .models import User, Cart, Transaction, Product
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from django.db.models import F, Sum
+from .serilializers import ProductSerializer
+from rest_framework.renderers import JSONRenderer
 import json
 
 
@@ -114,3 +116,36 @@ class Checkout(APIView):
         userCart.delete()
 
         return HttpResponse()
+
+
+class FilterByPrice(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, reques, format=None):
+        productsByPrice = Product.objects.order_by('-price')
+        productSerialized = ProductSerializer(productsByPrice, many=True)
+        json = JSONRenderer().render(productSerialized.data)
+        return HttpResponse(json.decode())
+
+
+class FilterByScore(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, reques, format=None):
+        productsByScore = Product.objects.order_by('-score')
+        productSerialized = ProductSerializer(productsByScore, many=True)
+        json = JSONRenderer().render(productSerialized.data)
+        return HttpResponse(json.decode())
+
+
+class FilterByName(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, reques, format=None):
+        productsByName = Product.objects.order_by('name')
+        productSerialized = ProductSerializer(productsByName, many=True)
+        json = JSONRenderer().render(productSerialized.data)
+        return HttpResponse(json.decode())
