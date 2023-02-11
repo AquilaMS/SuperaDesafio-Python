@@ -13,23 +13,23 @@ import json
 class Signup(APIView):
 
     def post(self, request, format=None):
-        password = make_password(request.data['password'])
-        username = request.data['username']
-        email = request.data['email']
-        checkerEmail = User.objects.filter(email=email).first()
+        try:
+            password = make_password(request.data['password'])
+            username = request.data['username']
+            email = request.data['email']
+        except:
+            return JsonResponse({'error': 'Missing fields'})
 
         checkerEmail = User.objects.filter(email=email).first()
         checkerUsername = User.objects.filter(username=username).first()
-        if (checkerEmail):
-            return HttpResponse({'error': 'Register failed. Check email/password.'})
-        if (checkerUsername):
-            return HttpResponse({'error': 'Register failed. Check email/password.'})
+        if (checkerEmail or checkerUsername):
+            return JsonResponse({'error': 'Register failed. Check email/password.'})
 
         insert_user = User.objects.create(
             email=email, password=password, username=username)
         insert_user.save()
         token = Token.objects.create(user=insert_user)
-        return HttpResponse(insert_user)
+        return HttpResponse()
 
 
 class ProductToCart(APIView):
@@ -38,8 +38,11 @@ class ProductToCart(APIView):
 
     def post(self, request, format=None):
         body = json.loads(request.body)
+        try:
+            id_product = body['id_product']
+        except:
+            return JsonResponse({'error': 'Missing id_product'})
         user = request.user
-        id_product = body['id_product']
         product = Product.objects.get(id_product=id_product)
         checkUseCart = Cart.objects.filter(id_user=user).first()
         userCart = Cart(id_user=user)
@@ -70,13 +73,15 @@ class ProductToCart(APIView):
         else:
             userCart.save()
             userCart.products.add(product)
-            update_total_price()
-            return HttpResponse()
+            return update_total_price()
 
     def delete(self, request, format=None):
         body = json.loads(request.body)
         user = request.user
-        id_product = body['id_product']
+        try:
+            id_product = body['id_product']
+        except:
+            return JsonResponse({'error': 'Missing id_product'})
         product = Product.objects.get(id_product=id_product)
         checkUseCart = Cart.objects.filter(id_user=user).first()
         userCart = Cart(id_user=user)
