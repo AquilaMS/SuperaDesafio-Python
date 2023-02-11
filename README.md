@@ -18,7 +18,7 @@
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `{email, password}      | `json` | Recebe o token de autenticação|
+| `{email, password}`      | `json` | Recebe o token de autenticação|
 
 
 ```
@@ -26,7 +26,7 @@
 ```
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-|    {id_product}   | `json` |Adiciona um produto baseado no ID no carrinho do usuário|
+|    `{id_product}`   | `json` |Adiciona um produto baseado no ID no carrinho do usuário|
 
 ```
  DELETE api/cart/
