@@ -139,3 +139,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
 }
+
+NOSE_ARGS = ['--nocapture',
+             '--nologcapture',]

@@ -5,7 +5,7 @@ from .models import User, Cart, Transaction, Product
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from django.db.models import F, Sum
-from .serilializers import ProductSerializer
+from .serilializers import ProductSerializer, TransactionSerilializer
 from rest_framework.renderers import JSONRenderer
 import json
 
@@ -110,7 +110,7 @@ class Checkout(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, format=None):
-        body = json.loads(request.body)
+        # body = json.loads(request.body)
         user = request.user
         userCart = Cart.objects.get(id_user=user)
         allUserProduct = userCart.products.all()
@@ -123,11 +123,38 @@ class Checkout(APIView):
         return HttpResponse()
 
 
+class BoughtItems(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, format=None):
+        user = request.user
+        userTransactions = Transaction.objects.filter(id_user=user)
+        transactionsSerilized = TransactionSerilializer(
+            userTransactions, many=True)
+        transactionsJson = JSONRenderer().render(transactionsSerilized.data)
+        transactionsDict = json.loads(transactionsJson.decode())
+        bought_list = []
+        for item in transactionsDict:
+            bought_list.extend(item['bought'])
+
+        item_list = []
+
+        for item in bought_list:
+            productList = Product.objects.get(id_product=item)
+            productSerilized = ProductSerializer(productList)
+            productJson = JSONRenderer().render(productSerilized.data)
+            item_list.append(productJson)
+            print(productJson)
+
+        return JsonResponse(item_list, safe=False)
+
+
 class FilterByPrice(APIView):
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, reques, format=None):
+    def get(self, request, format=None):
         productsByPrice = Product.objects.order_by('-price')
         productSerialized = ProductSerializer(productsByPrice, many=True)
         json = JSONRenderer().render(productSerialized.data)
@@ -138,7 +165,7 @@ class FilterByScore(APIView):
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, reques, format=None):
+    def get(self, request, format=None):
         productsByScore = Product.objects.order_by('-score')
         productSerialized = ProductSerializer(productsByScore, many=True)
         json = JSONRenderer().render(productSerialized.data)
@@ -149,7 +176,7 @@ class FilterByName(APIView):
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, reques, format=None):
+    def get(self, request, format=None):
         productsByName = Product.objects.order_by('name')
         productSerialized = ProductSerializer(productsByName, many=True)
         json = JSONRenderer().render(productSerialized.data)

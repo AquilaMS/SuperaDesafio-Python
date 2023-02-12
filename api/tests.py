@@ -1,12 +1,14 @@
 from django.test import TestCase
 
+token = 'Token 0c81e098e96e3b92e181ed3e31fc8847184d947b'
+
 
 class TestConnections(TestCase):
     def test_success_signup(self):
         response = self.client.post('/api/signup/')
         self.assertEqual(response.status_code, 200)
 
-    # Test with no AUTH
+    # Tests with no AUTH
     def test_success_gettoken(self):
         response = self.client.post('/api/get-token/')
         self.assertEqual(response.status_code, 400)
@@ -37,4 +39,6 @@ class TestConnections(TestCase):
 
 
 class TestInputs(TestCase):
-    pass
+    def test_signup_must_return_error_fields(self):
+        response = self.client.post('/api/signup/')
+        self.assertEqual(response.json()['error'], 'Missing fields')
