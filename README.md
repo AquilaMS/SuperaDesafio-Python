@@ -101,3 +101,14 @@ Toda a parte lógica do back-end está no arquivo `views.py` dentro da pasta `ap
 | :---------- | :--------- | :------------------------------------------ |
 | `{}`      | `json` |Recebe todos os produtos ordenados por `name`|
 
+
+![Screenshot from 2023-02-12 18-54-29](https://user-images.githubusercontent.com/26696249/218339788-0e43a21f-ec28-47b3-8280-0ff5c1dd7144.png)
+![Screenshot from 2023-02-12 18-54-52](https://user-images.githubusercontent.com/26696249/218339799-ce44d63c-f2a0-4164-99ae-42aec0d2dfc4.png)
+![Screenshot from 2023-02-12 18-55-21](https://user-images.githubusercontent.com/26696249/218339803-bc309831-2b64-4f00-b19e-c4f7ce91c280.png)
+![Screenshot from 2023-02-12 18-55-43](https://user-images.githubusercontent.com/26696249/218339813-647ebcf1-40a0-4e95-b31b-979a7b3e2d35.png)
+![Screenshot from 2023-02-12 18-56-15](https://user-images.githubusercontent.com/26696249/218339821-04414775-e7e0-4114-b715-59681d8f71a4.png)
+![Screenshot from 2023-02-12 18-56-44](https://user-images.githubusercontent.com/26696249/218339823-1f0d8e80-285f-432b-9260-f9e01cdb8706.png)
+![Screenshot from 2023-02-12 18-56-58](https://user-images.githubusercontent.com/26696249/218339831-e181f3f2-8359-44df-8d5b-b65196d55423.png)
+
+
+
