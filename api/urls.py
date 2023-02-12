@@ -11,5 +11,4 @@ urlpatterns = [
     path('cart/filter/name/', views.FilterByName.as_view()),
     path('cart/filter/price/', views.FilterByPrice.as_view()),
     path('cart/transactions/view/', views.BoughtItems.as_view()),
-
 ]

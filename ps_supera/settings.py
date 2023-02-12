@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework.authtoken',
+    'corsheaders',
     'rest_framework',
     'api',
 ]
@@ -51,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'ps_supera.urls'
@@ -142,3 +145,8 @@ REST_FRAMEWORK = {
 
 NOSE_ARGS = ['--nocapture',
              '--nologcapture',]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000'
+
+]

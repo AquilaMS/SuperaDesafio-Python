@@ -110,7 +110,6 @@ class Checkout(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, format=None):
-        # body = json.loads(request.body)
         user = request.user
         userCart = Cart.objects.get(id_user=user)
         allUserProduct = userCart.products.all()
@@ -144,15 +143,13 @@ class BoughtItems(APIView):
             productList = Product.objects.get(id_product=item)
             productSerilized = ProductSerializer(productList)
             productJson = JSONRenderer().render(productSerilized.data)
-            item_list.append(productJson)
-            print(productJson)
+            item_list.append(json.loads(productJson.decode()))
 
-        return JsonResponse(item_list, safe=False)
+        jsonResult = json.dumps(item_list)
+        return HttpResponse(jsonResult, content_type='application/json')
 
 
 class FilterByPrice(APIView):
-    authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
         productsByPrice = Product.objects.order_by('-price')
@@ -162,8 +159,6 @@ class FilterByPrice(APIView):
 
 
 class FilterByScore(APIView):
-    authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
         productsByScore = Product.objects.order_by('-score')
@@ -173,8 +168,6 @@ class FilterByScore(APIView):
 
 
 class FilterByName(APIView):
-    authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
         productsByName = Product.objects.order_by('name')
