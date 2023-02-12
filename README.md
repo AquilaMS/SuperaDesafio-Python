@@ -36,11 +36,19 @@
 | `{id_product}`      | `json` |Retira do carrinho um produto baseado no ID|
 
 ```
+ POST cart/transactions/view/
+```
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `{}`      | `json` |Retorna todos os items comprados pelo usuário|
+
+```
  POST api/cart/checkout/
 ```
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `{}`      | `json` |Efetua checkout do carrinho do usuário e o deleta da tabela Cart|
+
 
 ```
  GET api/filter/price/
