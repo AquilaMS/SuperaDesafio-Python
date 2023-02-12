@@ -24,7 +24,7 @@ Pensei em usar alguma função como `LOAD DATA` presente em alguns outros banco 
 
 Usei no front-end desse projeto alguns arquivos que criei em um outro projeto pessoal. 
 
-Na parte do front-end criei uma pasta ` fake_cdn` para simular a existência de um CDN e não inserir as imagens diretas no banco.
+Na parte do front-end criei uma pasta `fake_cdn` para simular a existência de um CDN e não inserir as imagens diretas no banco.
 
 Toda a parte lógica do back-end está no arquivo `views.py` dentro da pasta `api`
 
