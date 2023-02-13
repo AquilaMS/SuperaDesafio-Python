@@ -1,8 +1,5 @@
 # SuperaDesafio-Python
 
-
-# Título do Projeto
-
 ## Execução 
 
 Não foi possível containerizar as aplicações. Mas, para fazer o banco de dados funcionar com os requesitos da aplicação, use os comandos:
