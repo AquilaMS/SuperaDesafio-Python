@@ -17,7 +17,7 @@ Não foi possível containerizar as aplicações. Mas, para fazer o banco de dad
 Todos os requesitos do back-end foram atendidos. Entretanto, parte do front-end, não. Como a parte de checkout e feedbacks visuais de remoções e adições de itens. Print das telas estão no final do `README`
 
 ###  Informações adicionais
-Pensei em usar alguma função como `LOAD DATA` presente em alguns outros banco de dados para a inserção automática do JSON. Mas, como não foi possivel, decidi adicionar manualmente os itens. Talvez uma forma de deixar esse processo automático seria fazer um loop que leria os dados do arquivo e com um `IF NOT EXISTS` adiociona-los para o banco.
+Pensei em usar alguma função como `LOAD DATA` presente em alguns outros banco de dados para a inserção automática do JSON. Mas, como não foi possivel, decidi adicionar manualmente os itens. Talvez uma forma de deixar esse processo automático seria fazer um loop que leria os dados do arquivo e com um `IF NOT EXISTS` adiciona-los para o banco.
 
 Usei no front-end desse projeto alguns arquivos que criei em um outro projeto pessoal. 
 
@@ -25,7 +25,7 @@ Na parte do front-end criei uma pasta `fake_cdn` para simular a existência de u
 
 Toda a parte lógica do back-end está no arquivo `views.py` dentro da pasta `api`
 
-Os testes so cobriram a existência das rotas.
+Os testes apenas cobriram a existência das rotas.
 
 ## Documentação da API
 
